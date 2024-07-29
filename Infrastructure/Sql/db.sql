@@ -14,7 +14,7 @@ CREATE TABLE Books(
     gender VARCHAR(100),
     datePublication DATETIME,
     copiesAvailable INT,
-    status ENUM('Borrowed', 'Available')
+    status ENUM('Borrowed', 'Available', "Delete")
 );
 
 CREATE TABLE Loans(
@@ -30,6 +30,8 @@ CREATE TABLE Loans(
 
 DROP TABLE Books;
 
-SELECT * FROM Books
+
+DROP TABLE Loans;
+
 
 SHOW TABLES;

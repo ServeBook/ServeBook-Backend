@@ -7,6 +7,9 @@ using ServeBook_Backend.Aplications.Services.Token;
 using ServeBook_Backend.Data;
 using ServeBook_Backend.Aplications.Interfaces;
 using ServeBook_Backend.Aplications.Services;
+using DotNetEnv;
+
+Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,6 +64,9 @@ builder.Services.AddAuthentication(opt => {
                 }
             };
         });
+
+/* EMAIL */
+builder.Services.Configure<Email>(builder.Configuration.GetSection("EmailSettings"));
 
 var app = builder.Build();
 
