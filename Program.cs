@@ -1,5 +1,7 @@
 using ServeBook_Backend.Data;
 using Microsoft.EntityFrameworkCore;
+using ServeBook_Backend.Aplications.Interfaces;
+using ServeBook_Backend.Aplications.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,8 @@ builder.Services.AddDbContext<ServeBooksContext> (options =>
         builder.Configuration.GetConnectionString("MySqlConnection"),
         Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.20-mysql")));
 
+/* Interfaz */
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
