@@ -23,15 +23,12 @@ namespace ServeBook_Backend.Aplications.Services.Token
         }
         public string GetToken(User authResponse)
         {
-            try
-            {
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Key));
             
                 var claims = new List<Claim>
                 {
                     new Claim(JwtRegisteredClaimNames.Email, authResponse.email),
-                    new Claim(JwtRegisteredClaimNames.Sub, authResponse.id_user.ToString()), // ID del usuario
-                    new Claim(ClaimTypes.Role, authResponse.rol)
+                    new Claim(JwtRegisteredClaimNames.Sub, authResponse.id_user.ToString())
                 };
 
                 var tokenOptions = new SecurityTokenDescriptor
@@ -48,13 +45,7 @@ namespace ServeBook_Backend.Aplications.Services.Token
                 var securityToken = tokenHandler.CreateToken(tokenOptions);
                 var tokenString = tokenHandler.WriteToken(securityToken);
 
-                return tokenString;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error mientras se generaba el token", ex);
-            }
-            
+                return tokenString;            
         }
     }
 }

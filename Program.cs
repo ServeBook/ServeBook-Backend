@@ -3,6 +3,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using ServeBook_Backend.Aplications.Interfaces;
+using ServeBook_Backend.Aplications.Services;
 using ServeBook_Backend.Aplications.Services.Token;
 using ServeBook_Backend.Data;
 using ServeBook_Backend.Aplications.Interfaces;
@@ -25,6 +27,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddScoped<ITokenServices, TokenServices>();
+builder.Services.AddScoped<IUserServices, UserServices>();
+
 
 
 /* Configuracion del token */
