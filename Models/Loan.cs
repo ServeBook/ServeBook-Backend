@@ -26,6 +26,7 @@ namespace ServeBook_Backend.Models
         /* ------- */
         [Required(ErrorMessage = "The status of the loan is required.")]
         public string status {get; set;}
+
         
     }
 }

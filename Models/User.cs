@@ -31,8 +31,5 @@ namespace ServeBook_Backend.Models
         [MaxLength(100, ErrorMessage = "rol must be at most {1} characters.")]
         public string rol {get; set;}
 
-
-
-        
     }
 }
