@@ -7,14 +7,16 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ServeBook_Backend.Aplications.Services.Token;
+using ServeBook_Backend.Data;
+using ServeBook_Backend.Models;
 
 namespace ServeBook_Backend.Aplications.Controllers
 {
     public class LoginController : Controller
     {
-        /* private readonly ITokenServices _tokenServices;
-        private readonly BaseContext _context;
-        public LoginController(BaseContext context, ITokenServices tokenServices)
+        private readonly ITokenServices _tokenServices;
+        private readonly ServeBooksContext _context;
+        public LoginController(ServeBooksContext context, ITokenServices tokenServices)
         {
             _tokenServices = tokenServices;
             _context = context;
@@ -23,7 +25,7 @@ namespace ServeBook_Backend.Aplications.Controllers
         [HttpGet]
         public async Task<IActionResult> Login([FromBody] User authResponse)
         {
-            var user = _context.users.FirstOrDefault(u => u.email == authResponse.email);
+            var user = _context.Users.FirstOrDefault(u => u.email == authResponse.email);
 
             if(user != null && BCrypt.Net.BCrypt.Verify(authResponse.password, user.password))
             {
@@ -41,9 +43,9 @@ namespace ServeBook_Backend.Aplications.Controllers
                     Expires = DateTime.UtcNow.AddHours(1) // Establecer la expiración de la cookie
                 };
 
-                Response.Cookies.Append("Id", BCrypt.Net.BCrypt.HashPassword(usuario.Id.ToString()), cookieOptions);
-                Response.Cookies.Append("Email", BCrypt.Net.BCrypt.HashPassword(usuario.Email), cookieOptions);
-                Response.Cookies.Append("RoleId", BCrypt.Net.BCrypt.HashPassword(usuario.RoleId.ToString()), cookieOptions);
+                Response.Cookies.Append("Id", BCrypt.Net.BCrypt.HashPassword(user.id_user.ToString()), cookieOptions);
+                Response.Cookies.Append("Email", BCrypt.Net.BCrypt.HashPassword(user.email), cookieOptions);
+                Response.Cookies.Append("RoleId", BCrypt.Net.BCrypt.HashPassword(user.rol.ToString()), cookieOptions);
 
                 return Ok(new { Token = token });
             }
@@ -51,7 +53,7 @@ namespace ServeBook_Backend.Aplications.Controllers
             {
                 return NotFound("email or password are not correct.");
             }
-        } */
+        }
 
     }
 }

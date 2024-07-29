@@ -6,10 +6,11 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
+using ServeBook_Backend.Models;
 
 namespace ServeBook_Backend.Aplications.Services.Token
 {
-    /* public class TokenServices : ITokenServices
+    public class TokenServices : ITokenServices
     {
         private readonly string Key;   
         private readonly string Issuer;
@@ -28,8 +29,10 @@ namespace ServeBook_Backend.Aplications.Services.Token
             
                 var claims = new List<Claim>
                 {
-                    /* new Claim(JwtRegisteredClaimNames.Email, authResponse.email) */
-                /* };
+                    new Claim(JwtRegisteredClaimNames.Email, authResponse.email),
+                    new Claim(JwtRegisteredClaimNames.Sub, authResponse.id_user.ToString()), // ID del usuario
+                    new Claim(ClaimTypes.Role, authResponse.rol)
+                };
 
                 var tokenOptions = new SecurityTokenDescriptor
                 {
@@ -49,10 +52,9 @@ namespace ServeBook_Backend.Aplications.Services.Token
             }
             catch (Exception ex)
             {
-                
-                Console.WriteLine(ex.Message);
+                throw new Exception("Error mientras se generaba el token", ex);
             }
             
-        } 
-    } */
+        }
+    }
 }

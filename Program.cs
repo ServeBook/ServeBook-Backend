@@ -1,22 +1,27 @@
 using System.Net;
 using System.Text;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ServeBook_Backend.Aplications.Services.Token;
+using ServeBook_Backend.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
+
+builder.Services.AddDbContext<ServeBooksContext> (options =>
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("MySqlConnection"),
+        Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.20-mysql")));
+
+
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-/* builder.Services.AddScoped<ITokenServices, TokenServices>(); */
+builder.Services.AddScoped<ITokenServices, TokenServices>();
 
-/* builder.Services.AddDbContext<BaseContext>(options =>
-    options.UseMySql(
-        builder.Configuration.GetConnectionString("MySqlConnection"),
-        Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.20-mysql"))); */
 
 /* Configuracion del token */
 builder.Services.AddAuthentication(opt => {
