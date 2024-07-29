@@ -6,5 +6,69 @@
 		"_exporter_id": "32234445",
 		"_collection_link": "https://www.postman.com/luegopago-9342/workspace/servebook/collection/32234445-4d217f37-86be-40c6-a213-8de4285600f8?action=share&source=collection_link&creator=32234445"
 	},
-	"item": []
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"\",\r\n    \"password\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5112/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5112",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"jhoan\",\r\n    \"email\" : \"jhoan@gmail.com\",\r\n    \"password\" : \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5112/User/Create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5112",
+							"path": [
+								"User",
+								"Create"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Aqui podremos iniciar sesion y registrarnos para usar el programa."
+		}
+	]
 }
