@@ -9,6 +9,9 @@ namespace ServeBook_Backend.Aplications.Interfaces
     public interface IBookRepository
     {
         Task CreateBook(Book book);
+        IEnumerable<Book> GetAll();
+
+        Book GetByStatus(string status);
         
     }
 }
