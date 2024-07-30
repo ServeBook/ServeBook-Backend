@@ -57,5 +57,10 @@ namespace ServeBook_Backend.Aplications.Services
             _context.Books.Update(booksito);
             _context.SaveChanges();
         }
+
+        public IEnumerable<Book> AvailableBook()
+        {
+            return _context.Books.Where(b => b.status == "Available").ToList();
+        }
     }
 }
