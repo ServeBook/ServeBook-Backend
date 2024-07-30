@@ -1,4 +1,4 @@
--- Active: 1722286563297@@bzqowhsjm9nn7sfoweey-mysql.services.clever-cloud.com@3306
+-- Active: 1722303815535@@bzqowhsjm9nn7sfoweey-mysql.services.clever-cloud.com@3306@bzqowhsjm9nn7sfoweey
 CREATE TABLE Users(
     id_user INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
@@ -33,5 +33,8 @@ DROP TABLE Books;
 
 DROP TABLE Loans;
 
+SELECT * FROM Books;
+SELECT * FROM Loans;
+SELECT * FROM Users;
 
 SHOW TABLES;
