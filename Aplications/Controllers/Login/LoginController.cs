@@ -19,7 +19,7 @@ namespace ServeBook_Backend.Aplications.Controllers
         private readonly ServeBooksContext _context;
         private readonly MailRepository _mailrepository;
 
-        public LoginController(ServeBooksContext context, ITokenServices tokenServices/* , MailRepository mailRepository */)
+        public LoginController(ServeBooksContext context, ITokenServices tokenServices, MailRepository mailRepository)
         {
             _tokenServices = tokenServices;
             _context = context;
@@ -40,8 +40,6 @@ namespace ServeBook_Backend.Aplications.Controllers
                 {
                     return Unauthorized();
                 }
-
-                
 
                 /* Enviar correo */
                 var subject = "¡Has iniciado sesión en Serve Books!";

@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ServeBook_Backend.Aplications.Interfaces;
 using ServeBook_Backend.Aplications.Services;
-using ServeBook_Backend.Aplications.Services.Middleware;
 using ServeBook_Backend.Aplications.Services.Token;
 using ServeBook_Backend.Data;
 using ServeBook_Backend.Models;
 using ServeBook_Backend.Aplications.Services.Mail;
+using System.IdentityModel.Tokens.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,14 +32,16 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ITokenServices, TokenServices>();
 builder.Services.AddScoped<IUserServices, UserServices>();
+builder.Services.AddScoped<ILoanRepository, LoanRepository>();
+builder.Services.AddTransient<MailRepository>();
 
 builder.Services.AddAuthorization(options =>
     {
-        options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+        options.AddPolicy("AdminEmailPolicy", policy =>
+            policy.RequireClaim(JwtRegisteredClaimNames.Sub, "3"));
     });
-builder.Services.AddTransient<MailRepository>();
-builder.Services.AddScoped<IBookRepository, BookRepository>();
-builder.Services.AddScoped<ILoanRepository, LoanRepository>();
+
+
 
 /* Configuracion del token */
 builder.Services.AddAuthentication(opt => {
@@ -87,8 +89,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseMiddleware<RoleGuardMiddleware>();
 
 /* Configuracion de authentication y authorization */
 app.UseAuthentication();
