@@ -5,33 +5,41 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ServeBook_Backend.Aplications.Interfaces;
 using ServeBook_Backend.Aplications.Services;
+using ServeBook_Backend.Aplications.Services.Middleware;
 using ServeBook_Backend.Aplications.Services.Token;
 using ServeBook_Backend.Data;
-using ServeBook_Backend.Aplications.Interfaces;
-using ServeBook_Backend.Aplications.Services;
-
-Env.Load();
+using ServeBook_Backend.Models;
+using ServeBook_Backend.Aplications.Services.Mail;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+// Contexto de la base de datos
 builder.Services.AddDbContext<ServeBooksContext> (options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("MySqlConnection"),
         Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.20-mysql")));
 
-/* Interfaz */
-builder.Services.AddScoped<IBookRepository, BookRepository>();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+
+/* Inyeccion de dependencias */
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ITokenServices, TokenServices>();
 builder.Services.AddScoped<IUserServices, UserServices>();
 
-
+builder.Services.AddAuthorization(options =>
+    {
+        options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+    });
+builder.Services.AddTransient<MailRepository>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 
 /* Configuracion del token */
 builder.Services.AddAuthentication(opt => {
@@ -80,6 +88,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<RoleGuardMiddleware>();
 
 /* Configuracion de authentication y authorization */
 app.UseAuthentication();

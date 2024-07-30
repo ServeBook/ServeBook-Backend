@@ -26,7 +26,7 @@ namespace ServeBook_Backend.Models
         /* ------- */
         [Required(ErrorMessage = "The date of creation is required.")]
         [DataType(DataType.Date)]
-        public DateTime datePublication {get; set;}
+        public DateOnly datePublication {get; set;}
 
         /* ------- */
         public int copiesAvailable {get; set;}
