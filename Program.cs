@@ -32,14 +32,15 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ITokenServices, TokenServices>();
 builder.Services.AddScoped<IUserServices, UserServices>();
+builder.Services.AddScoped<ILoanRepository, LoanRepository>();
+builder.Services.AddTransient<MailRepository>();
 
 builder.Services.AddAuthorization(options =>
     {
         options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
     });
-builder.Services.AddTransient<MailRepository>();
-builder.Services.AddScoped<IBookRepository, BookRepository>();
-builder.Services.AddScoped<ILoanRepository, LoanRepository>();
+
+
 
 /* Configuracion del token */
 builder.Services.AddAuthentication(opt => {

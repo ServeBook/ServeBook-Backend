@@ -7,22 +7,24 @@ namespace ServeBook_Backend.Models
         [Key]
         /* ------- */
         public int id_loan {get; set;}
-
+        
         /* ------ */
         public int userId {get; set;}
+        public User Users {get; set;}
 
         /* ------ */
         public int bookId {get; set;}
+        public Book Books {get; set;}
 
         /* ------- */
         [Required(ErrorMessage = "The date of creation of the loan is required.")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime dateLoan {get; set;}
 
         /* ------- */
         [Required(ErrorMessage = "The date of return of the loan is required.")]
         [DataType(DataType.Date)]
-        public DateTime dateReturn {get; set;}
+        public DateOnly dateReturn {get; set;}
 
         /* ------- */
         [Required(ErrorMessage = "The status of the loan is required.")]

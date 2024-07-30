@@ -1,9 +1,12 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace ServeBook_Backend.Models
+namespace ServeBook_Backend.Dtos
 {
-    public class Book
+    public class BookCreateDto
     {
         [Key]
         /* ------- */
@@ -31,13 +34,5 @@ namespace ServeBook_Backend.Models
 
         /* ------- */
         public int copiesAvailable {get; set;}
-
-        /* ------- */
-        [Required(ErrorMessage = "The status of the book is required.")]
-        public string status {get; set;}
-
-        [JsonIgnore]
-        public List<Loan>? Loans { get; set; }
-        
     }
 }
