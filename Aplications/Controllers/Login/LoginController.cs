@@ -22,13 +22,13 @@ namespace ServeBook_Backend.Aplications.Controllers
     {
         private readonly ITokenServices _tokenServices;
         private readonly ServeBooksContext _context;
-        private readonly MailRepository _mailrepository;
+        /* private readonly MailRepository _mailrepository; */
 
-        public LoginController(ServeBooksContext context, ITokenServices tokenServices, MailRepository mailRepository)
+        public LoginController(ServeBooksContext context, ITokenServices tokenServices/* , MailRepository mailRepository */)
         {
             _tokenServices = tokenServices;
             _context = context;
-            _mailrepository = mailRepository;
+            /* _mailrepository = mailRepository; */
         }
 
         [Route("login")]
@@ -46,27 +46,18 @@ namespace ServeBook_Backend.Aplications.Controllers
                     return Unauthorized();
                 }
 
-                var cookieOptions = new CookieOptions
-                {
-                    HttpOnly = true, // La cookie no será accesible a través de JavaScript
-                    Secure = true, // La cookie solo se enviará a través de conexiones HTTPS
-                    Expires = DateTime.UtcNow.AddHours(1) // Establecer la expiración de la cookie
-                };
-
-                Response.Cookies.Append("Id", BCrypt.Net.BCrypt.HashPassword(user.id_user.ToString()), cookieOptions);
-                Response.Cookies.Append("Email", BCrypt.Net.BCrypt.HashPassword(user.email), cookieOptions);
-                Response.Cookies.Append("Role", BCrypt.Net.BCrypt.HashPassword(user.rol.ToString()), cookieOptions);
+                
 
                 /* Enviar correo */
-                var subject = "¡Has iniciado sesión en Serve Books!";
+                /* var subject = "¡Has iniciado sesión en Serve Books!";
                 var mensajeUser = $"Bienvenid@ a Serve Books {user.name}\n Acabas de iniciar sesión en nuestra página.";
-                _mailrepository.EmailLogIn(user.email, subject, mensajeUser, authResponse);
+                _mailrepository.EmailLogIn(user.email, subject, mensajeUser, authResponse); */
 
                 return Ok(new { Token = token });
             }
             else
             {
-                return NotFound("email or password are not correct.");
+                return NotFound("email o contraseña no son correctos o estan vacios.");
             }
         }
 

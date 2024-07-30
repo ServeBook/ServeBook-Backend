@@ -28,7 +28,8 @@ namespace ServeBook_Backend.Aplications.Services.Token
                 var claims = new List<Claim>
                 {
                     new Claim(JwtRegisteredClaimNames.Email, authResponse.email),
-                    new Claim(JwtRegisteredClaimNames.Sub, authResponse.id_user.ToString())
+                    new Claim(JwtRegisteredClaimNames.Sub, authResponse.id_user.ToString())/* ,
+                    new Claim(ClaimTypes.Role, authResponse.rol) */
                 };
 
                 var tokenOptions = new SecurityTokenDescriptor
