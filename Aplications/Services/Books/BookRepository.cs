@@ -23,5 +23,11 @@ namespace ServeBook_Backend.Aplications.Services
             await _context.SaveChangesAsync();
         }
 
+        public void UpdateBook(Book booksito)
+        {
+            _context.Books.Update(booksito);
+            _context.SaveChanges();
+        }
+
     }
 }

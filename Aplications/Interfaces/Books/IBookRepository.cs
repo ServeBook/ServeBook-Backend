@@ -12,6 +12,7 @@ namespace ServeBook_Backend.Aplications.Interfaces
         IEnumerable<Book> GetAll();
 
         Book GetByStatus(string status);
+        public void UpdateBook(Book booksito);
         
     }
 }
