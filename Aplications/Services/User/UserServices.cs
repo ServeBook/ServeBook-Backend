@@ -19,6 +19,10 @@ namespace ServeBook_Backend.Aplications.Services
 
         public void Add(User user)
         {
+            if (user.email == "" || user.password == "" || user.rol == "")
+            {
+                throw new Exception("Debes llenar todos los campos.");
+            }
             var existingUser = _context.Users.FirstOrDefault(u => u.email == user.email);
             if (existingUser != null)
             {

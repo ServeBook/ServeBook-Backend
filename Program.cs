@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ServeBook_Backend.Aplications.Interfaces;
 using ServeBook_Backend.Aplications.Services;
+using ServeBook_Backend.Aplications.Services.Middleware;
 using ServeBook_Backend.Aplications.Services.Token;
 using ServeBook_Backend.Data;
 using ServeBook_Backend.Models;
@@ -20,12 +21,22 @@ builder.Services.AddDbContext<ServeBooksContext> (options =>
         builder.Configuration.GetConnectionString("MySqlConnection"),
         Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.20-mysql")));
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+
+/* Inyeccion de dependencias */
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ITokenServices, TokenServices>();
 builder.Services.AddScoped<IUserServices, UserServices>();
+
+builder.Services.AddAuthorization(options =>
+    {
+        options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+    });
 builder.Services.AddTransient<MailRepository>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ILoanRepository, LoanRepository>();
@@ -76,6 +87,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<RoleGuardMiddleware>();
 
 /* Configuracion de authentication y authorization */
 app.UseAuthentication();
