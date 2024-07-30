@@ -18,14 +18,15 @@ namespace ServeBook_Backend.Aplications.Services
             _context = context;
         }
 
-        public async Task CreateBook(Book book){
+        public async Task CreateBook(Book book)
+        {
             _context.Books.Add(book);
             await _context.SaveChangesAsync();
         }
 
         public IEnumerable<Book> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Books.ToList();
         }
 
         public Book GetByStatus(string status)
@@ -33,11 +34,28 @@ namespace ServeBook_Backend.Aplications.Services
             throw new NotImplementedException();
         }
 
+        public Book GetOne(int id)
+        {
+            return _context.Books.Find(id);
+        }
+
         public void UpdateBook(Book booksito)
         {
             _context.Books.Update(booksito);
             _context.SaveChanges();
         }
+        public void InactiveBook(Book booksito)
+        {
+            booksito.status = "Delete";
+            _context.Books.Update(booksito);
+            _context.SaveChanges();
+        }
 
+        public void ActiveBook(Book booksito)
+        {
+            booksito.status = "Available";
+            _context.Books.Update(booksito);
+            _context.SaveChanges();
+        }
     }
 }
