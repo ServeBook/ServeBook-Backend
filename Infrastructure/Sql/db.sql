@@ -1,4 +1,4 @@
--- Active: 1722286563297@@bzqowhsjm9nn7sfoweey-mysql.services.clever-cloud.com@3306@bzqowhsjm9nn7sfoweey
+-- Active: 1722341335283@@bzqowhsjm9nn7sfoweey-mysql.services.clever-cloud.com@3306
 
 ------------------------* TABLE USERS *---------------------------
 CREATE TABLE Users(
@@ -26,12 +26,25 @@ CREATE TABLE Loans(
     userId INT,
     bookId INT,
     dateLoan DATETIME,
-    dateReturn DATETIME,
+    dateReturn DATE,
     status ENUM("Wait", "Authorized", "Complete", "Denied"),
     FOREIGN KEY (userId) REFERENCES Users(id_user),
     FOREIGN KEY (bookId) REFERENCES Books(id_book)
 );
 
+------------------------* INSERTS *---------------------------
+INSERT INTO Loans (`userId`, `bookId`, `dateLoan`, `dateReturn`, status) VALUES
+(1, 1, "2003-01-11 10:30:04", "2003-01-11", "Authorized");
 
-SELECT * FROM Users WHERE id_user = @userId;
-SELECT * FROM Books WHERE id_book = @bookId;
+------------------------* SELECTS *---------------------------
+SELECT * from Books;
+SELECT * from Loans;
+SELECT * from Users;
+
+------------------------* DROPS *---------------------------
+-- DROP TABLE Loans;
+-- DROP TABLE Books;
+-- DROP TABLE Users;
+
+------------------------* DELETE FOR ID *---------------------------
+DELETE FROM Books WHERE id_book=6;

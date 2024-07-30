@@ -16,5 +16,6 @@ namespace ServeBook_Backend.Aplications.Interfaces
         public void UpdateBook(Book booksito);
         public void InactiveBook(Book booksito);
         public void ActiveBook(Book booksito);
+        public IEnumerable<Book> AvailableBook();
     }
 }

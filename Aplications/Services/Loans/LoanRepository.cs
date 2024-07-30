@@ -64,11 +64,15 @@ namespace ServeBook_Backend.Aplications.Services{
 
             /* Enviar correo */
             var subject = "¡Nueva Solicitud de prestamo!";
-            var mensajeAdmin = $"El usuario {foundUser.name}, ha pedido el prestamos del libro {foundBook.title}, Con fecha de entrega del {loanData.dateReturn}.\n ¡Autoriza el prestamo!";
-            _mailrepository.EmailSendLoan(foundAdmin.email, subject, mensajeAdmin, foundUser, foundBook, loanData);
-            Console.WriteLine(foundAdmin.email);
+            var mensajeAdmin = $"El usuario {foundUser.name}, ha pedido el prestamos del libro {foundBook.title}, Con fecha de entrega del {loanData.dateReturn}.\n Prestamo de {loanDuration} días. ¡Autoriza el prestamo!";
+            _mailrepository.EmailSendLoan(foundAdmin.email, subject, mensajeAdmin, foundUser, foundBook, loanData, loanDuration);
 
-            return "El registro del prestamo fue enviado, esoera la respuesta.";
+            return "El registro del prestamo fue enviado, espera la respuesta.";
+        }
+
+        public IEnumerable<Loan> AvailableLoan()
+        {
+            return _context.Loans.Where(b => b.status == "Authorized").ToList();
         }
     }
 }
