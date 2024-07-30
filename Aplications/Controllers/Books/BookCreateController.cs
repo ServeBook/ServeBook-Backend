@@ -32,7 +32,6 @@ namespace ServeBook_Backend.Controllers
             {
                 return BadRequest("The book could not be created");
             }
-
         }
     }
 }
