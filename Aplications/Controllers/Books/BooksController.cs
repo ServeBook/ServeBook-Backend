@@ -57,7 +57,7 @@ namespace ServeBook_Backend.Aplications.Controllers
         /*******************************************************/
         /*Utilizamos el metodo GET para Traer regitros en la tabla Books por Status*/
         [HttpGet]
-        [Route("{status}")]
+        [Route("/status/{status}")]
         public Book Details(string status)
         {
             return _bookRepository.GetByStatus(status);

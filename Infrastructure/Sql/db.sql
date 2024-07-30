@@ -1,4 +1,4 @@
--- Active: 1722303815535@@bzqowhsjm9nn7sfoweey-mysql.services.clever-cloud.com@3306@bzqowhsjm9nn7sfoweey
+-- Active: 1722341335283@@bzqowhsjm9nn7sfoweey-mysql.services.clever-cloud.com@3306
 
 ------------------------* TABLE USERS *---------------------------
 CREATE TABLE Users(
@@ -15,7 +15,7 @@ CREATE TABLE Books(
     title VARCHAR(50),
     author VARCHAR(100),
     gender VARCHAR(100),
-    datePublication DATETIME,
+    datePublication DATE,
     copiesAvailable INT,
     status ENUM('Borrowed', 'Available', "Delete")
 );
@@ -32,15 +32,15 @@ CREATE TABLE Loans(
     FOREIGN KEY (bookId) REFERENCES Books(id_book)
 );
 
-------------------------* DROP TABLES *---------------------------
-DROP TABLE `Books`;
-DROP TABLE `Loans`;
-DROP TABLE `Users`;
+------------------------* SELECTS *---------------------------
+SELECT * from Books;
+SELECT * from Loans;
+SELECT * from Users;
 
-------------------------* SELECT TABLES *---------------------------
-SELECT * FROM Books;
-SELECT * FROM Loans;
-SELECT * FROM Users;
+------------------------* DROPS *---------------------------
+-- DROP TABLE Loans;
+-- DROP TABLE Books;
+-- DROP TABLE Users;
 
-------------------------* SHOW TABLES *---------------------------
-SHOW TABLES;
+------------------------* DELETE FOR ID *---------------------------
+DELETE FROM Books WHERE id_book=6;
