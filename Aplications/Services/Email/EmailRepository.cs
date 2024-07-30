@@ -8,7 +8,7 @@ using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using MailKit.Net.Smtp;
-using ServeBook_Backend.Context;
+using ServeBook_Backend.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace ServeBook_Backend.Aplications.Services{

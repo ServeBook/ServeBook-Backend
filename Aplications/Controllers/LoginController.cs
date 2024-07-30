@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using ServeBook_Backend.Aplications.Services.Token;
 using ServeBook_Backend.Data;
 using ServeBook_Backend.Models;
-using ServeBook_Backend.Aplications.Services.Email;
+using ServeBook_Backend.Aplications.Services;
 
 namespace ServeBook_Backend.Aplications.Controllers
 {
