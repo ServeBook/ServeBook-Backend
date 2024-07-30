@@ -17,13 +17,13 @@ namespace ServeBook_Backend.Aplications.Controllers
     {
         private readonly ITokenServices _tokenServices;
         private readonly ServeBooksContext _context;
-        /* private readonly MailRepository _mailrepository; */
+        private readonly MailRepository _mailrepository;
 
         public LoginController(ServeBooksContext context, ITokenServices tokenServices/* , MailRepository mailRepository */)
         {
             _tokenServices = tokenServices;
             _context = context;
-            /* _mailrepository = mailRepository; */
+            _mailrepository = mailRepository;
         }
 
         [Route("login")]
@@ -44,7 +44,7 @@ namespace ServeBook_Backend.Aplications.Controllers
                 
 
                 /* Enviar correo */
-                /* var subject = "¡Has iniciado sesión en Serve Books!";
+                var subject = "¡Has iniciado sesión en Serve Books!";
                 var mensajeUser = $"Bienvenid@ a Serve Books {user.name}\n Acabas de iniciar sesión en nuestra página.";
                 _mailrepository.EmailLogIn(user.email, subject, mensajeUser, user);
 
