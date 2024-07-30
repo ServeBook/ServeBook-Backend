@@ -9,11 +9,6 @@ using Microsoft.Extensions.Logging;
 using ServeBook_Backend.Aplications.Services.Token;
 using ServeBook_Backend.Data;
 using ServeBook_Backend.Models;
-using ServeBook_Backend.Aplications.Services;
-using MailKit.Net.Smtp;
-using MailKit.Security;
-using MimeKit;
-using System.Net.Mail;
 using ServeBook_Backend.Aplications.Services.Mail;
 
 namespace ServeBook_Backend.Aplications.Controllers
@@ -60,7 +55,7 @@ namespace ServeBook_Backend.Aplications.Controllers
                 /* Enviar correo */
                 var subject = "¡Has iniciado sesión en Serve Books!";
                 var mensajeUser = $"Bienvenid@ a Serve Books {user.name}\n Acabas de iniciar sesión en nuestra página.";
-                _mailrepository.EmailLogIn(user.email, subject, mensajeUser, authResponse);
+                _mailrepository.EmailLogIn(user.email, subject, mensajeUser, user);
 
                 return Ok(new { Token = token });
             }
