@@ -20,20 +20,47 @@ namespace ServeBook_Backend.Aplications.Controllers
         {
             _bookRepository = bookRepository;
         }
-        
-        [HttpGet]
-        [Route("api/Books")]
 
-        public IEnumerable  <Book> GetBooks(){
+        /*Utilizamos el metodo GET para Traer TODOS registros en la tabla Books*/
+        [HttpGet]   
+        [Route("api/books")]
+        public IEnumerable <Book> GetBooks(){
             return _bookRepository.GetAll();
         }
-        /*******************************************************/
-        /*Utilizamos el metodo GET para Traer regitros en la tabla Books por Status*/
+        /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+
+        /*Metodo GET para Traer registros en la tabla Books con Status BORROWED*/
         [HttpGet]
-        [Route("api/Books/{status}")]
-        public Book Details(string status) {
-            return _bookRepository.GetByStatus(status);
+        [Route("api/books/borrowed")]
+        public IEnumerable<Book> GetBooksBorrowed(){
+            return _bookRepository.GetAllBorrowed();
         }
-        /*******************************************************/
-}
+        /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+
+        /*Metodo GET para Traer registro en la tabla Books con estatus AVAILABLE*/
+        [HttpGet]
+        [Route("api/books/available")]
+        public IEnumerable<Book> GetAllAvailable(){
+            return _bookRepository.GetAllAvailable();
+        }
+        /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+        
+
+         /* Obtener todas las solicitudes de préstamo pendientes */
+        [HttpGet("loans/pending")]
+        public IEnumerable<Loan> GetPendingLoans()
+        {
+            return _bookRepository.GetPendingLoans();
+        }
+
+        /* Aprobar una solicitud de préstamo */
+        [HttpPost("loans/approve/{id}")]
+        public IActionResult ApproveLoan(int leanId,int bookId)
+        {
+            _bookRepository.ApproveLoan(leanId,bookId);
+            return Ok();
+        }
+
+
+    }
 }

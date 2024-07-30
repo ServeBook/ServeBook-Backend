@@ -31,5 +31,7 @@ namespace ServeBook_Backend.Models
         [MinLength(1, ErrorMessage = "rol must be at least {1} characters.")]
         [MaxLength(100, ErrorMessage = "rol must be at most {1} characters.")]
         public string rol {get; set;}
+
+        public ICollection<Loan> Loans { get; set; }
     }
 }

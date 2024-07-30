@@ -35,5 +35,12 @@ namespace ServeBook_Backend.Models
         [Required(ErrorMessage = "The status of the book is required.")]
         public string status {get; set;}
         
+
+        
+        // Relación con Loan
+        public ICollection<Loan> Loans { get; set; }
+        
+
+        
     }
 }
