@@ -23,6 +23,16 @@ namespace ServeBook_Backend.Aplications.Services
             await _context.SaveChangesAsync();
         }
 
+        public IEnumerable<Book> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Book GetByStatus(string status)
+        {
+            throw new NotImplementedException();
+        }
+
         public void UpdateBook(Book booksito)
         {
             _context.Books.Update(booksito);
