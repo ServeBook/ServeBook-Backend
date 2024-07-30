@@ -10,6 +10,7 @@ using ServeBook_Backend.Data;
 using ServeBook_Backend.Aplications.Interfaces;
 using ServeBook_Backend.Aplications.Services;
 using ServeBook_Backend.Models;
+using ServeBook_Backend.Aplications.Services.Mail;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +21,6 @@ builder.Services.AddDbContext<ServeBooksContext> (options =>
         builder.Configuration.GetConnectionString("MySqlConnection"),
         Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.20-mysql")));
 
-/* Interfaz */
-builder.Services.AddScoped<IBookRepository, BookRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -29,6 +28,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddScoped<ITokenServices, TokenServices>();
 builder.Services.AddScoped<IUserServices, UserServices>();
+builder.Services.AddTransient<MailRepository>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 
 
 
