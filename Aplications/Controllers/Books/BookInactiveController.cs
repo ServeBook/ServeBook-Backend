@@ -23,14 +23,14 @@ namespace ServeBook_Backend.Controllers.Books
             try
             {
                 var booksito = _bookRepository.GetOne(id);
-                if (booksito.status == "Inactive")
+                if (booksito.status == "Delete")
                 {
                     return Ok($"El libro {booksito.title} ya se encuentra inactivo");
                 }
                 else
                 {
                     _bookRepository.InactiveBook(booksito);
-                    return Ok($"el libro {booksito.title} ha cambiado de estado a inactivo");
+                    return Ok($"el libro {booksito.title} ha cambiado de estado a delete");
                 }
             }
             catch (Exception e)

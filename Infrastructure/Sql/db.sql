@@ -26,11 +26,15 @@ CREATE TABLE Loans(
     userId INT,
     bookId INT,
     dateLoan DATETIME,
-    dateReturn DATETIME,
+    dateReturn DATE,
     status ENUM("Wait", "Authorized", "Complete", "Denied"),
     FOREIGN KEY (userId) REFERENCES Users(id_user),
     FOREIGN KEY (bookId) REFERENCES Books(id_book)
 );
+
+------------------------* INSERTS *---------------------------
+INSERT INTO Loans (`userId`, `bookId`, `dateLoan`, `dateReturn`, status) VALUES
+(1, 1, "2003-01-11 10:30:04", "2003-01-11", "Authorized");
 
 ------------------------* SELECTS *---------------------------
 SELECT * from Books;

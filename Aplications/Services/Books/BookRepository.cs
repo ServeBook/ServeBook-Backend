@@ -7,6 +7,7 @@ using ServeBook_Backend.Aplications.Services;
 using ServeBook_Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using ServeBook_Backend.Aplications.Interfaces;
+using ServeBook_Backend.Dtos;
 
 namespace ServeBook_Backend.Aplications.Services
 {
@@ -18,9 +19,26 @@ namespace ServeBook_Backend.Aplications.Services
             _context = context;
         }
 
-        public async Task CreateBook(Book book)
+        public async Task CreateBook(BookCreateDto bookDto)
         {
-            _context.Books.Add(book);
+            var bookData = new Book
+            {
+                title = bookDto.title,
+                author = bookDto.author,
+                gender = bookDto.gender,
+                datePublication = bookDto.datePublication,
+                copiesAvailable = bookDto.copiesAvailable
+            };
+
+            /* Si la cantidad de copias del libro es mayor a 0 esta disponible */
+            if(bookData.copiesAvailable > 0){
+                bookData.status = "Available";
+            }else if(bookData.copiesAvailable <= 0){
+                /* Si la cantidad de copias del libro es menor o igual a 0 esta prestado */
+                bookData.status = "Borrowed";
+            }
+
+            _context.Books.Add(bookData);
             await _context.SaveChangesAsync();
         }
 
@@ -56,6 +74,11 @@ namespace ServeBook_Backend.Aplications.Services
             booksito.status = "Available";
             _context.Books.Update(booksito);
             _context.SaveChanges();
+        }
+
+        public IEnumerable<Book> AvailableBook()
+        {
+            return _context.Books.Where(b => b.status == "Available").ToList();
         }
     }
 }

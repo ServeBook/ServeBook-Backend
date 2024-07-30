@@ -65,6 +65,5 @@ namespace ServeBook_Backend.Aplications.Controllers
         }
         /*******************************************************/
 
-
     }
 }

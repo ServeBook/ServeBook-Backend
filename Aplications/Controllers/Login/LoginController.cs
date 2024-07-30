@@ -41,8 +41,6 @@ namespace ServeBook_Backend.Aplications.Controllers
                     return Unauthorized();
                 }
 
-                
-
                 /* Enviar correo */
                 var subject = "¡Has iniciado sesión en Serve Books!";
                 var mensajeUser = $"Bienvenid@ a Serve Books {user.name}\n Acabas de iniciar sesión en nuestra página.";
