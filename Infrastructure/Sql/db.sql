@@ -12,7 +12,7 @@ CREATE TABLE Books(
     title VARCHAR(50),
     author VARCHAR(100),
     gender VARCHAR(100),
-    datePublication DATETIME,
+    datePublication DATE,
     copiesAvailable INT,
     status ENUM('Borrowed', 'Available', "Delete")
 );
@@ -27,11 +27,3 @@ CREATE TABLE Loans(
     FOREIGN KEY (userId) REFERENCES Users(id_user),
     FOREIGN KEY (bookId) REFERENCES Books(id_book)
 );
-
-DROP TABLE Books;
-
-
-DROP TABLE Loans;
-
-
-SHOW TABLES;
