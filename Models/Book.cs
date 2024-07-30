@@ -4,6 +4,7 @@ namespace ServeBook_Backend.Models
 {
     public class Book
     {
+        [Key]
         /* ------- */
         public int id_book {get; set;}
 

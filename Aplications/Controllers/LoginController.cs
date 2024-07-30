@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using ServeBook_Backend.Aplications.Services.Token;
 using ServeBook_Backend.Data;
 using ServeBook_Backend.Models;
+using ServeBook_Backend.Aplications.Services.Email;
 
 namespace ServeBook_Backend.Aplications.Controllers
 {
@@ -16,13 +17,16 @@ namespace ServeBook_Backend.Aplications.Controllers
     {
         private readonly ITokenServices _tokenServices;
         private readonly ServeBooksContext _context;
-        public LoginController(ServeBooksContext context, ITokenServices tokenServices)
+        private readonly EmailSettings _emailrepository;
+        public LoginController(ServeBooksContext context, ITokenServices tokenServices, EmailRepository emailRepository)
         {
             _tokenServices = tokenServices;
             _context = context;
+            _emailrepository = emailRepository;
         }
 
-        [HttpGet]
+        [Route("login")]
+        [HttpPost]
         public async Task<IActionResult> Login([FromBody] User authResponse)
         {
             var user = _context.Users.FirstOrDefault(u => u.email == authResponse.email);
@@ -45,7 +49,12 @@ namespace ServeBook_Backend.Aplications.Controllers
 
                 Response.Cookies.Append("Id", BCrypt.Net.BCrypt.HashPassword(user.id_user.ToString()), cookieOptions);
                 Response.Cookies.Append("Email", BCrypt.Net.BCrypt.HashPassword(user.email), cookieOptions);
-                Response.Cookies.Append("RoleId", BCrypt.Net.BCrypt.HashPassword(user.rol.ToString()), cookieOptions);
+                Response.Cookies.Append("Role", BCrypt.Net.BCrypt.HashPassword(user.rol.ToString()), cookieOptions);
+
+                /* Enviar correo */
+                var subject = "¡Has iniciado sesión en Serve Books!";
+                var mensajeUser = $"Bienvenid@ a Serve Books {user.name}\n Acabas de iniciar sesión en nuestra página.";
+                _emailrepository.EmailLogIn(user.email, subject, mensajeUser, authResponse);
 
                 return Ok(new { Token = token });
             }

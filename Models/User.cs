@@ -4,6 +4,7 @@ namespace ServeBook_Backend.Models
 {
     public class User
     {
+        [Key]
         /* ------- */
         public int id_user {get; set;}
 
@@ -23,13 +24,12 @@ namespace ServeBook_Backend.Models
         [Required(ErrorMessage = "The password of the user is required.")]
         [MinLength(1, ErrorMessage = "password must be at least {1} characters.")]
         [MaxLength(100, ErrorMessage = "password must be at most {1} characters.")]
-        public string password {get; set;}
+        public string password {get; set;}  
 
         /* ------ */
         [Required(ErrorMessage = "The rol is required.")]
         [MinLength(1, ErrorMessage = "rol must be at least {1} characters.")]
         [MaxLength(100, ErrorMessage = "rol must be at most {1} characters.")]
         public string rol {get; set;}
-
     }
 }

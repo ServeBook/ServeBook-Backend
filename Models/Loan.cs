@@ -4,6 +4,7 @@ namespace ServeBook_Backend.Models
 {
     public class Loan
     {
+        [Key]
         /* ------- */
         public int id_loan {get; set;}
 
