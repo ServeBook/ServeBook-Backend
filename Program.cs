@@ -9,7 +9,6 @@ using ServeBook_Backend.Aplications.Services.Token;
 using ServeBook_Backend.Data;
 using ServeBook_Backend.Aplications.Interfaces;
 using ServeBook_Backend.Aplications.Services;
-using DotNetEnv;
 
 Env.Load();
 
