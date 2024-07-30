@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ServeBook_Backend.Models;
 
+
 namespace ServeBook_Backend.Data{
     public class ServeBooksContext : DbContext{
         public ServeBooksContext(DbContextOptions<ServeBooksContext> options) : base(options){}
@@ -8,7 +9,7 @@ namespace ServeBook_Backend.Data{
         public DbSet<Book> Books {get; set;}
         public DbSet<Loan> Loans {get; set;}
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        /* protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Loan>()
             .HasOne(l => l.Users)
@@ -16,11 +17,11 @@ namespace ServeBook_Backend.Data{
             .HasForeignKey(l => l.userId);
 
         modelBuilder.Entity<Loan>()
-            .HasOne(l => l.Books)
+            .HasOne(l => l.Book)
             .WithMany(b => b.Loans)
             .HasForeignKey(l => l.bookId);
 
         base.OnModelCreating(modelBuilder);
+    } */
     }
-    }
-}
+}   

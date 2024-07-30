@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ServeBook_Backend.Aplications.Interfaces;
 using ServeBook_Backend.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ServeBook_Backend.Controllers
 {
@@ -20,6 +21,7 @@ namespace ServeBook_Backend.Controllers
             _bookRepository = bookRepository;
         }
 
+        [Authorize]
         [HttpPost]
         [Route("book/create")]
         public async Task<IActionResult> Create([FromBody] BookCreateDto bookDto)

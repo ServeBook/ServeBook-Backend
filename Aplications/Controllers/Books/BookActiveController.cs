@@ -1,9 +1,11 @@
-  using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ServeBook_Backend.Aplications.Interfaces;
 using ServeBook_Backend.Models;
 
 namespace ServeBook_Backend.Controllers.Books
 {
+  [Authorize]
   [ApiController]
   [Route("api/book/active")]
   public class BookActiveController : ControllerBase

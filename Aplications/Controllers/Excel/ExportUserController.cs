@@ -44,7 +44,7 @@ namespace ServeBook_Backend.Aplications.Controllers
             // Consultar los préstamos del usuario
             var loans = await _context.Loans
                 .Where(loan => loan.userId == userId)
-                .Include(loan => loan.Books) // Asumiendo que tienes una relación entre Loan y Book configurada en el modelo
+                .Include(loan => loan.Book) // Asumiendo que tienes una relación entre Loan y Book configurada en el modelo
                 .ToListAsync();
 
             using (var package = new ExcelPackage())
@@ -65,9 +65,9 @@ namespace ServeBook_Backend.Aplications.Controllers
                 {
                    worksheet.Cells[row, 1].Value = loan.id_loan;
                     worksheet.Cells[row, 2].Value = loan.userId;
-                    worksheet.Cells[row, 3].Value = loan.Books;
-                    worksheet.Cells[row, 4].Value = loan.Books?.title; // Asumiendo que tienes una relación entre Loan y Book configurada en el modelo
-                    worksheet.Cells[row, 5].Value = loan.Books?.author; // Asumiendo que tienes una relación entre Loan y Book configurada en el modelo
+                    worksheet.Cells[row, 3].Value = loan.Book;
+                    worksheet.Cells[row, 4].Value = loan.Book?.title; // Asumiendo que tienes una relación entre Loan y Book configurada en el modelo
+                    worksheet.Cells[row, 5].Value = loan.Book?.author; // Asumiendo que tienes una relación entre Loan y Book configurada en el modelo
                     worksheet.Cells[row, 6].Value = loan.dateLoan.ToString("yyyy-MM-dd");
                     worksheet.Cells[row, 7].Value = loan.dateReturn.ToString("yyyy-MM-dd");
                     worksheet.Cells[row, 8].Value = loan.status;

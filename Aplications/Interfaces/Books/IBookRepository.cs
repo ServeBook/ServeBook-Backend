@@ -9,11 +9,18 @@ namespace ServeBook_Backend.Aplications.Interfaces
 {
     public interface IBookRepository
     {
+        IEnumerable<Book> GetAllAvailable();
+        IEnumerable<Book> GetAllBorrowed();
         Task CreateBook(BookCreateDto bookDto);
-        public IEnumerable<Book> GetAll();
-        Book GetByStatus(string status);
-        public Book GetOne(int id);
+                public Book GetOne(int id);
         public void UpdateBook(Book booksito);
+        IEnumerable<Book> GetAll();
+
+        /* Obtener todas las solicitudes de préstamo pendientes */
+        IEnumerable<Loan> GetPendingLoans();
+
+        /* Aprobar una solicitud de préstamo */
+        void ApproveLoan(int loanId, int bookId);
         public void InactiveBook(Book booksito);
         public void ActiveBook(Book booksito);
         public IEnumerable<Book> AvailableBook();

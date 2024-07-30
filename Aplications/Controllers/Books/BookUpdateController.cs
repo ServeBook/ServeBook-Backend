@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServeBook_Backend.Aplications.Interfaces;
 using ServeBook_Backend.Models;
@@ -5,6 +6,7 @@ using ServeBook_Backend.Models;
 namespace ServeBook_Backend.Controllers.Books
 {
     [ApiController]
+    [Authorize]
     [Route("api/book/update")]
     public class BookUpdateController : ControllerBase
     {

@@ -15,7 +15,6 @@ using ServeBook_Backend.Models;
 namespace ServeBook_Backend.Aplications.Controllers
 {
     [ApiController]
-    [Route("api/books")]
     public class BooksController : Controller
     {
         private readonly IBookRepository _bookRepository;
@@ -24,7 +23,9 @@ namespace ServeBook_Backend.Aplications.Controllers
             _bookRepository = bookRepository;
         }
 
+        [Authorize]
         [HttpGet]
+        [Route("api/books")]
         public ActionResult<IEnumerable<Book>> GetBooks()
         {
             try
@@ -36,8 +37,10 @@ namespace ServeBook_Backend.Aplications.Controllers
                 return StatusCode(500, $"Error, libro no encontrado: {e.Message}");
             }
         }
-
-        [HttpGet("{id}")]
+        
+        [Authorize]
+        [HttpGet]
+        [Route("api/{id}/books")]
         public IActionResult GetBook(int id)
         {
             try
@@ -56,14 +59,43 @@ namespace ServeBook_Backend.Aplications.Controllers
         }
         
         /*******************************************************/
-        /*Utilizamos el metodo GET para Traer regitros en la tabla Books por Status*/
+
+
+        /*Metodo GET para Traer registros en la tabla Books con Status BORROWED*/
+        [Authorize]
         [HttpGet]
-        [Route("/status/{status}")]
-        public Book Details(string status)
-        {
-            return _bookRepository.GetByStatus(status);
+        [Route("/borrowed")]
+        public IEnumerable<Book> GetBooksBorrowed(){
+            return _bookRepository.GetAllBorrowed();
         }
-        /*******************************************************/
+        /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+
+        /*Metodo GET para Traer registro en la tabla Books con estatus AVAILABLE*/
+        [Authorize]
+        [HttpGet]
+        [Route("/available")]
+        public IEnumerable<Book> GetAllAvailable(){
+            return _bookRepository.GetAllAvailable();
+        }
+        /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+        
+
+         /* Obtener todas las solicitudes de préstamo pendientes */
+        [Authorize]
+        [HttpGet("loans/pending")]
+        public IEnumerable<Loan> GetPendingLoans()
+        {
+            return _bookRepository.GetPendingLoans();
+        }
+
+        /* Aprobar una solicitud de préstamo */
+        [Authorize]
+        [HttpPost("loans/approve/{id}")]
+        public IActionResult ApproveLoan(int leanId,int bookId)
+        {
+            _bookRepository.ApproveLoan(leanId,bookId);
+            return Ok();
+        }
 
     }
 }

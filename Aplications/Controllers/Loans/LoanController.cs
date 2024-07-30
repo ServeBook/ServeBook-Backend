@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServeBook_Backend.Aplications.Interfaces;
 using ServeBook_Backend.Models;
 
 namespace ServeBook_Backend.Aplications.Controllers
 {
-    [ApiController]
-    [Route("api/Loan")]
+    
     public class LoanController : ControllerBase
     {
         private readonly ILoanRepository _loanRepository;
@@ -18,7 +18,9 @@ namespace ServeBook_Backend.Aplications.Controllers
             _loanRepository = loanRepository;
         }
 
+        [Authorize]
         [HttpGet]
+        [Route("api/Loan")]
         public ActionResult<IEnumerable<Loan>> GetLoans()
         {
             try

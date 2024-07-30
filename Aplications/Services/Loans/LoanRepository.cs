@@ -72,7 +72,7 @@ namespace ServeBook_Backend.Aplications.Services{
 
         public IEnumerable<Loan> AvailableLoan()
         {
-            return _context.Loans.Where(b => b.status == "Authorized").ToList();
+            return _context.Loans.Where(b => b.status == "Authorized").Include(u => u.Book).Include(u => u.User).ToList();
         }
     }
 }
