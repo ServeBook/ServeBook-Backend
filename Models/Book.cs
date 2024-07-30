@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace ServeBook_Backend.Models
 {
@@ -34,6 +35,7 @@ namespace ServeBook_Backend.Models
         /* ------- */
         [Required(ErrorMessage = "The status of the book is required.")]
         public string status {get; set;}
-        
+        [JsonIgnore]
+        public List<Loan> Loans { get; set; }
     }
 }

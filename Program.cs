@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ServeBook_Backend.Aplications.Interfaces;
 using ServeBook_Backend.Aplications.Services;
-using ServeBook_Backend.Aplications.Services.Middleware;
 using ServeBook_Backend.Aplications.Services.Token;
 using ServeBook_Backend.Data;
 using ServeBook_Backend.Models;
 using ServeBook_Backend.Aplications.Services.Mail;
+using System.IdentityModel.Tokens.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,7 +35,8 @@ builder.Services.AddScoped<IUserServices, UserServices>();
 
 builder.Services.AddAuthorization(options =>
     {
-        options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+        options.AddPolicy("AdminEmailPolicy", policy =>
+            policy.RequireClaim(JwtRegisteredClaimNames.Email, "robinson.cortes@riwi.io"));
     });
 
 /* Configuracion del token */
@@ -84,8 +85,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseMiddleware<RoleGuardMiddleware>();
 
 /* Configuracion de authentication y authorization */
 app.UseAuthentication();

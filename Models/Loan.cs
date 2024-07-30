@@ -10,9 +10,10 @@ namespace ServeBook_Backend.Models
 
         /* ------ */
         public int userId {get; set;}
-
+        public User Users { get; set; }   
         /* ------ */
         public int bookId {get; set;}
+        public Book Book { get; set; }
 
         /* ------- */
         [Required(ErrorMessage = "The date of creation of the loan is required.")]
