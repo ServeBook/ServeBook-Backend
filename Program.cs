@@ -9,11 +9,13 @@ using ServeBook_Backend.Aplications.Services.Middleware;
 using ServeBook_Backend.Aplications.Services.Token;
 using ServeBook_Backend.Data;
 using ServeBook_Backend.Models;
+using ServeBook_Backend.Aplications.Services.Mail;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+// Contexto de la base de datos
 builder.Services.AddDbContext<ServeBooksContext> (options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("MySqlConnection"),
