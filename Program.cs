@@ -38,7 +38,7 @@ builder.Services.AddTransient<MailRepository>();
 builder.Services.AddAuthorization(options =>
     {
         options.AddPolicy("AdminEmailPolicy", policy =>
-            policy.RequireClaim(JwtRegisteredClaimNames.Email, "robinson.cortes@riwi.io"));
+            policy.RequireClaim(JwtRegisteredClaimNames.Sub, "3"));
     });
 
 
