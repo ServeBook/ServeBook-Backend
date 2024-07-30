@@ -1,4 +1,6 @@
 -- Active: 1722303815535@@bzqowhsjm9nn7sfoweey-mysql.services.clever-cloud.com@3306@bzqowhsjm9nn7sfoweey
+
+------------------------* TABLE USERS *---------------------------
 CREATE TABLE Users(
     id_user INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
@@ -7,6 +9,7 @@ CREATE TABLE Users(
     rol ENUM("Admin", "User")
 );
 
+------------------------* TABLE BOOKS *---------------------------
 CREATE TABLE Books(
     id_book INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(50),
@@ -17,6 +20,7 @@ CREATE TABLE Books(
     status ENUM('Borrowed', 'Available', "Delete")
 );
 
+------------------------* TABLE LOANS *---------------------------
 CREATE TABLE Loans(
     id_loan INT AUTO_INCREMENT PRIMARY KEY,
     userId INT,
@@ -28,13 +32,15 @@ CREATE TABLE Loans(
     FOREIGN KEY (bookId) REFERENCES Books(id_book)
 );
 
-DROP TABLE Books;
+------------------------* DROP TABLES *---------------------------
+DROP TABLE `Books`;
+DROP TABLE `Loans`;
+DROP TABLE `Users`;
 
-
-DROP TABLE Loans;
-
+------------------------* SELECT TABLES *---------------------------
 SELECT * FROM Books;
 SELECT * FROM Loans;
 SELECT * FROM Users;
 
+------------------------* SHOW TABLES *---------------------------
 SHOW TABLES;
