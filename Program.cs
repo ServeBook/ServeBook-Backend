@@ -7,8 +7,6 @@ using ServeBook_Backend.Aplications.Interfaces;
 using ServeBook_Backend.Aplications.Services;
 using ServeBook_Backend.Aplications.Services.Token;
 using ServeBook_Backend.Data;
-using ServeBook_Backend.Aplications.Interfaces;
-using ServeBook_Backend.Aplications.Services;
 using ServeBook_Backend.Models;
 using ServeBook_Backend.Aplications.Services.Mail;
 
@@ -30,6 +28,7 @@ builder.Services.AddScoped<ITokenServices, TokenServices>();
 builder.Services.AddScoped<IUserServices, UserServices>();
 builder.Services.AddTransient<MailRepository>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 
 /* Configuracion del token */
 builder.Services.AddAuthentication(opt => {
