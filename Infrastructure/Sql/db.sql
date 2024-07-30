@@ -1,4 +1,4 @@
--- Active: 1722303815535@@bzqowhsjm9nn7sfoweey-mysql.services.clever-cloud.com@3306@bzqowhsjm9nn7sfoweey
+-- Active: 1722286563297@@bzqowhsjm9nn7sfoweey-mysql.services.clever-cloud.com@3306@bzqowhsjm9nn7sfoweey
 
 ------------------------* TABLE USERS *---------------------------
 CREATE TABLE Users(
@@ -31,3 +31,7 @@ CREATE TABLE Loans(
     FOREIGN KEY (userId) REFERENCES Users(id_user),
     FOREIGN KEY (bookId) REFERENCES Books(id_book)
 );
+
+
+SELECT * FROM Users WHERE id_user = @userId;
+SELECT * FROM Books WHERE id_book = @bookId;

@@ -55,5 +55,21 @@ namespace ServeBook_Backend.Aplications.Services.Mail
             }
         }
 
+        public void EmailSendLoan(string Email, string subject, string body, User user, Book book, Loan loan)
+        {
+            var emailMessage = new MimeMessage();
+            emailMessage.From.Add(new MailboxAddress(_emailSettings.SenderName, _emailSettings.SenderEmail));
+            emailMessage.To.Add(new MailboxAddress("", Email));
+            emailMessage.Subject = subject;
+            emailMessage.Body = new TextPart("plain") { Text = $"El usuario {user.name}, ha pedido el prestamos del libro {book.title}, Con fecha de entrega del {loan.dateReturn}.\n ¡Autoriza el prestamo!" };
+            using (var client = new MailKit.Net.Smtp.SmtpClient())
+            {
+                client.Connect(_emailSettings.SmtpServer, _emailSettings.Port, false);
+                client.Authenticate(_emailSettings.Username, _emailSettings.Password);
+                client.Send(emailMessage);
+                client.Disconnect(true);
+            }
+        }
+
     }
 }
